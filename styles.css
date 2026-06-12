@@ -837,3 +837,28 @@ body[data-theme="light"] .gradient-text {
     object-fit: cover !important;
   }
 }
+/* ===============================
+   SHOWCASE IMAGE FILL FIX
+   Makes portfolio hero images fill the frame consistently
+================================ */
+
+.showcase-frame {
+  overflow: hidden;
+}
+
+.showcase-frame img {
+  width: 100%;
+  height: 100%;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center center;
+}
+
+/* Keeps the image filling properly on compact laptop screens too */
+@media (min-width: 1000px) {
+  .showcase-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+  }
+}
