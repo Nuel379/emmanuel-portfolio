@@ -1247,3 +1247,669 @@ body[data-theme="light"] .gradient-text {
     height: 230px;
   }
 }
+
+/* =====================================================
+   MOBILE V2 EXPERIENCE FIX
+   Purpose:
+   - Stop mobile portfolio images from cutting badly
+   - Add usable mobile navigation
+   - Remove ugly tap/focus square effects
+   - Disable desktop mouse effects on mobile
+   - Make mobile layout cleaner and more intentional
+===================================================== */
+
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    padding-bottom: 84px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  a,
+  button,
+  .filter-chip,
+  .project-card,
+  .glass-hover {
+    outline: none !important;
+  }
+
+  a:focus,
+  button:focus,
+  .filter-chip:focus,
+  .project-card:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  .filter-chip:focus-visible {
+    outline: 2px solid rgba(77, 241, 225, 0.7) !important;
+    outline-offset: 3px;
+  }
+
+  /* Disable desktop-only effects on mobile */
+  .cursor-glow {
+    display: none !important;
+  }
+
+  .tilt-card,
+  .magnetic,
+  .glass-hover {
+    transform: none !important;
+  }
+
+  .section-pad {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* =========================
+     MOBILE HEADER
+  ========================= */
+
+  .site-header {
+    width: calc(100% - 24px) !important;
+    max-width: none !important;
+    margin: 12px auto 0 !important;
+    padding: 10px 12px !important;
+    min-height: 62px !important;
+    border-radius: 26px !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto auto !important;
+    align-items: center !important;
+    gap: 10px !important;
+    position: sticky !important;
+    top: 10px !important;
+    z-index: 999 !important;
+  }
+
+  .brand {
+    min-width: 0 !important;
+    gap: 8px !important;
+  }
+
+  .brand-mark {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 14px !important;
+  }
+
+  .brand-text {
+    font-size: 12px !important;
+    max-width: 112px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .header-cta {
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    border-radius: 999px !important;
+    white-space: nowrap !important;
+  }
+
+  .theme-toggle {
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    padding: 0 !important;
+    border-radius: 999px !important;
+    justify-content: center !important;
+  }
+
+  .theme-toggle-text {
+    display: none !important;
+  }
+
+  .theme-toggle-icon {
+    font-size: 16px !important;
+  }
+
+  /* Turn existing desktop nav into mobile bottom nav */
+  .desktop-nav {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    z-index: 1000 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 7px !important;
+    padding: 8px !important;
+    border-radius: 24px !important;
+    background: rgba(8, 14, 32, 0.78) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+  }
+
+  .desktop-nav a {
+    padding: 10px 6px !important;
+    border-radius: 18px !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .desktop-nav a:active {
+    transform: scale(0.96) !important;
+    background: rgba(77, 241, 225, 0.16) !important;
+  }
+
+  /* =========================
+     MOBILE HERO
+  ========================= */
+
+  .hero.section-pad {
+    padding-top: 54px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .hero {
+    min-height: auto !important;
+  }
+
+  .hero-copy {
+    text-align: left !important;
+  }
+
+  .hero-copy .eyebrow {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px 14px !important;
+    margin-bottom: 20px !important;
+    border-radius: 999px !important;
+    font-size: 10px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 0.17em !important;
+    white-space: normal !important;
+  }
+
+  .hero h1 {
+    max-width: 100% !important;
+    font-size: clamp(38px, 11.4vw, 50px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.055em !important;
+    margin-bottom: 18px !important;
+  }
+
+  .hero-lead {
+    max-width: 100% !important;
+    font-size: 15.5px !important;
+    line-height: 1.65 !important;
+    margin-bottom: 22px !important;
+  }
+
+  .hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .btn {
+    width: 100% !important;
+    min-height: 58px !important;
+    padding: 15px 18px !important;
+    border-radius: 999px !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+  }
+
+  /* Make proof stats compact, not huge vertical blocks */
+  .hero-stats {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    margin-top: 16px !important;
+    margin-bottom: 22px !important;
+  }
+
+  .hero-stats .glass-hover {
+    min-height: auto !important;
+    padding: 12px 10px !important;
+    border-radius: 20px !important;
+  }
+
+  .hero-stats strong {
+    font-size: 22px !important;
+    line-height: 1 !important;
+  }
+
+  .hero-stats span {
+    display: block !important;
+    margin-top: 5px !important;
+    font-size: 10.5px !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Hero showcase should show full artwork on mobile */
+  .hero-showcase {
+    width: 100% !important;
+    margin-top: 8px !important;
+  }
+
+  .showcase-frame {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: 1 / 0.86 !important;
+    border-radius: 28px !important;
+    overflow: hidden !important;
+  }
+
+  .showcase-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: rgba(8, 14, 32, 0.35) !important;
+  }
+
+  .showcase-overlay {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    padding: 13px 15px !important;
+    border-radius: 20px !important;
+  }
+
+  .showcase-overlay span {
+    font-size: 10px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.16em !important;
+  }
+
+  .showcase-overlay strong {
+    font-size: 22px !important;
+  }
+
+  .floating-badge {
+    display: none !important;
+  }
+
+  /* =========================
+     MARQUEE
+  ========================= */
+
+  .marquee {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    overflow: hidden !important;
+  }
+
+  .marquee-track {
+    gap: 22px !important;
+  }
+
+  .marquee-track span {
+    font-size: 11px !important;
+    letter-spacing: 0.14em !important;
+    white-space: nowrap !important;
+  }
+
+  /* =========================
+     SECTION HEADINGS
+  ========================= */
+
+  .section-heading {
+    margin-bottom: 28px !important;
+    text-align: center !important;
+  }
+
+  .section-heading .eyebrow {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(30px, 8.5vw, 40px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  .section-heading p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* =========================
+     GRIDS
+  ========================= */
+
+  .capability-grid,
+  .portfolio-grid,
+  .service-grid,
+  .expect-grid,
+  .process-timeline {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .mini-card,
+  .service-card,
+  .process-step {
+    padding: 24px !important;
+    border-radius: 28px !important;
+  }
+
+  .mini-card h3,
+  .service-card h3,
+  .process-step h3 {
+    font-size: 22px !important;
+    line-height: 1.15 !important;
+  }
+
+  .mini-card p,
+  .service-card p,
+  .process-step p {
+    font-size: 14.5px !important;
+    line-height: 1.6 !important;
+  }
+
+  /* =========================
+     FILTER CHIPS
+  ========================= */
+
+  .filter-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    overflow: visible !important;
+    padding-bottom: 4px !important;
+  }
+
+  .filter-chip {
+    flex: 0 0 auto !important;
+    padding: 12px 16px !important;
+    border-radius: 999px !important;
+    font-size: 13px !important;
+    box-shadow: none !important;
+  }
+
+  .filter-chip:hover {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .filter-chip:active {
+    transform: scale(0.96) !important;
+  }
+
+  .filter-chip.active {
+    box-shadow: 0 12px 30px rgba(77, 241, 225, 0.18) !important;
+  }
+
+  /* =========================
+     PROJECT CARDS
+     Fix: stop images from cutting on mobile
+  ========================= */
+
+  .project-card {
+    width: 100% !important;
+    border-radius: 30px !important;
+    overflow: hidden !important;
+    transform: none !important;
+  }
+
+  .project-card:hover {
+    transform: none !important;
+  }
+
+  .project-image {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    background: rgba(8, 14, 32, 0.38) !important;
+  }
+
+  .project-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: rgba(8, 14, 32, 0.25) !important;
+  }
+
+  .project-info {
+    padding: 20px !important;
+  }
+
+  .project-topline {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 12px !important;
+    align-items: start !important;
+    margin-bottom: 14px !important;
+  }
+
+  .project-topline span {
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.18em !important;
+  }
+
+  .project-info h3 {
+    font-size: 28px !important;
+    line-height: 1.05 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .project-info p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    margin-bottom: 16px !important;
+  }
+
+  .project-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .project-tags span {
+    padding: 9px 12px !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+  }
+
+  /* =========================
+     ABOUT SECTION
+  ========================= */
+
+  .about-card {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+    padding: 20px !important;
+    border-radius: 32px !important;
+  }
+
+  .about-image-wrap {
+    width: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 26px !important;
+    overflow: hidden !important;
+  }
+
+  .about-image-wrap img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+  }
+
+  .about-copy h2 {
+    font-size: 31px !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  .about-copy p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  .about-tags {
+    gap: 8px !important;
+  }
+
+  .about-tags span {
+    font-size: 11px !important;
+    padding: 8px 10px !important;
+  }
+
+  .contact-strip {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    padding: 12px !important;
+  }
+
+  .contact-strip a,
+  .contact-strip button {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* =========================
+     CTA SECTION
+  ========================= */
+
+  .cta-card {
+    padding: 26px 20px !important;
+    border-radius: 32px !important;
+  }
+
+  .cta-card h2 {
+    font-size: 31px !important;
+    line-height: 1.08 !important;
+  }
+
+  .cta-card p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  .cta-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* =========================
+     MODAL MOBILE
+  ========================= */
+
+  .modal-panel {
+    width: calc(100% - 22px) !important;
+    max-height: calc(100svh - 22px) !important;
+    overflow-y: auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    border-radius: 28px !important;
+  }
+
+  .modal-media {
+    width: 100% !important;
+    min-height: 0 !important;
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .modal-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    background: rgba(8, 14, 32, 0.4) !important;
+  }
+
+  .modal-content {
+    padding: 20px !important;
+  }
+
+  .modal-content h2 {
+    font-size: 30px !important;
+    line-height: 1.08 !important;
+  }
+
+  .modal-content p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+  }
+
+  .modal-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* =========================
+     FOOTER
+  ========================= */
+
+  .site-footer {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    text-align: center !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 110px !important;
+  }
+}
+
+/* Extra correction for very small phones */
+@media (max-width: 420px) {
+  .brand-text {
+    max-width: 95px !important;
+    font-size: 11.5px !important;
+  }
+
+  .header-cta {
+    padding: 9px 14px !important;
+    font-size: 12px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(35px, 10.8vw, 45px) !important;
+  }
+
+  .hero-lead {
+    font-size: 15px !important;
+  }
+
+  .project-info h3 {
+    font-size: 26px !important;
+  }
+
+  .about-copy h2,
+  .cta-card h2 {
+    font-size: 29px !important;
+  }
+}
