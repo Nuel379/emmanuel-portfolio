@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@400;700;900&display=swap");
 
 :root {
   --bg: #050711;
@@ -17,8 +17,8 @@
   --shadow: 0 34px 90px rgba(0, 0, 0, 0.38);
   --radius: 28px;
   --max: 1180px;
-  --display: "Space Grotesk", "Manrope", Inter, ui-sans-serif, system-ui, sans-serif;
-  --body: "Manrope", Inter, ui-sans-serif, system-ui, sans-serif;
+  --display: "Cormorant Garamond", Georgia, serif;
+  --body: "Lato", Inter, ui-sans-serif, system-ui, sans-serif;
   --page-bg: radial-gradient(circle at 80% 10%, rgba(95, 225, 255, 0.19), transparent 34%), radial-gradient(circle at 19% 4%, rgba(139, 92, 246, 0.22), transparent 31%), radial-gradient(circle at 70% 86%, rgba(46, 232, 177, 0.1), transparent 32%), linear-gradient(140deg, #040611 0%, #0b1023 45%, #050711 100%);
   --grid-line: rgba(255, 255, 255, 0.035);
   --hero-grid-line: rgba(255, 255, 255, 0.04);
@@ -861,4 +861,102 @@ body[data-theme="light"] .gradient-text {
     height: 100%;
     object-fit: cover !important;
   }
+}
+
+/* ===============================
+   CORMORANT + LATO FONT UPDATE
+   Typography only — keeps viewport and layout stable
+================================ */
+
+body {
+  font-family: var(--body);
+  font-feature-settings: "kern", "liga", "calt";
+  text-rendering: geometricPrecision;
+}
+
+/* Elegant display headings only */
+h1,
+.section-heading h2,
+.about-copy h2,
+.cta-card h2,
+.modal-content h2 {
+  font-family: var(--display);
+  font-weight: 500;
+}
+
+/* Keep hero strong but not oversized */
+h1 {
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+}
+
+/* Keep section titles classy and controlled */
+.section-heading h2,
+.about-copy h2,
+.cta-card h2,
+.modal-content h2 {
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* Everything functional stays clean and readable */
+h3,
+.brand,
+.btn,
+.header-cta,
+.theme-toggle,
+.desktop-nav a,
+.project-topline,
+.eyebrow,
+.filter-chip,
+.project-tags span,
+.about-tags span,
+.modal-list span,
+.contact-strip a,
+.contact-strip button {
+  font-family: var(--body);
+}
+
+/* Prevent the UI from looking too heavy */
+.btn,
+.header-cta,
+.theme-toggle,
+.filter-chip,
+.project-tags span,
+.about-tags span,
+.modal-list span,
+.project-topline,
+.eyebrow {
+  font-weight: 700;
+}
+
+.brand,
+.brand-mark {
+  font-weight: 900;
+}
+
+/* Project and card titles stay readable, not too decorative */
+h3,
+.project-info h3,
+.mini-card h3,
+.service-card h3,
+.process-step h3 {
+  font-family: var(--body);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+/* Body text remains calm and professional */
+p,
+.hero-lead,
+.section-heading p,
+.about-copy p,
+.cta-card p,
+.project-info p,
+.mini-card p,
+.service-card p,
+.process-step p,
+.modal-content p {
+  font-family: var(--body);
+  font-weight: 400;
 }
