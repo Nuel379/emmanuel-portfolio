@@ -17,41 +17,121 @@ function hydrateContactLinks() {
    THEME TOGGLE
 ========================= */
 
-const themeToggle = document.getElementById('themeToggle');
+const themeToggles = document.querySelectorAll('[data-theme-toggle]');
 const THEME_STORAGE_KEY = 'emmanuel-portfolio-theme';
 
 function applyTheme(theme) {
   const nextTheme = theme === 'light' ? 'light' : 'dark';
+  const isLight = nextTheme === 'light';
 
   document.body.dataset.theme = nextTheme;
   localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
 
-  if (themeToggle) {
-    const isLight = nextTheme === 'light';
-
-    themeToggle.setAttribute('aria-pressed', String(isLight));
-    themeToggle.setAttribute(
+  themeToggles.forEach(toggle => {
+    toggle.setAttribute('aria-pressed', String(isLight));
+    toggle.setAttribute(
       'aria-label',
       isLight ? 'Switch to dark mode' : 'Switch to light mode'
     );
 
-    const icon = themeToggle.querySelector('.theme-toggle-icon');
-    const text = themeToggle.querySelector('.theme-toggle-text');
+    const icon = toggle.querySelector('.theme-toggle-icon');
+    const text = toggle.querySelector(
+      '.theme-toggle-text, .mobile-theme-text'
+    );
 
-    if (icon) icon.textContent = isLight ? '☾' : '☀';
-    if (text) text.textContent = isLight ? 'Dark' : 'Light';
-  }
+    if (icon) {
+      icon.textContent = isLight ? '☾' : '☀';
+    }
+
+    if (text) {
+      text.textContent = isLight ? 'Dark' : 'Light';
+    }
+  });
 }
 
 function initTheme() {
   const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   applyTheme(storedTheme || 'dark');
 
-  themeToggle?.addEventListener('click', () => {
-    const current = document.body.dataset.theme === 'light' ? 'light' : 'dark';
-    applyTheme(current === 'light' ? 'dark' : 'light');
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const currentTheme =
+        document.body.dataset.theme === 'light' ? 'light' : 'dark';
+
+      applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+    });
   });
 }
+
+/* =====================================================
+   MOBILE HEADER MENU
+===================================================== */
+
+const siteHeader = document.querySelector('.site-header');
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileMenuSheet = document.getElementById('mobileMenuSheet');
+
+function setMobileMenu(open) {
+  if (!siteHeader || !mobileMenuToggle || !mobileMenuSheet) return;
+
+  siteHeader.classList.toggle('menu-open', open);
+  mobileMenuToggle.setAttribute('aria-expanded', String(open));
+  mobileMenuToggle.setAttribute(
+    'aria-label',
+    open ? 'Close navigation menu' : 'Open navigation menu'
+  );
+
+  mobileMenuSheet.setAttribute('aria-hidden', String(!open));
+}
+
+mobileMenuToggle?.addEventListener('click', event => {
+  event.stopPropagation();
+
+  const shouldOpen = !siteHeader?.classList.contains('menu-open');
+  setMobileMenu(shouldOpen);
+});
+
+/* Close when a navigation item or theme control is tapped */
+mobileMenuSheet?.addEventListener('click', event => {
+  const clickedControl = event.target.closest('a, button');
+
+  if (clickedControl) {
+    setMobileMenu(false);
+  }
+});
+
+/* Close when the visitor taps outside the header */
+document.addEventListener('pointerdown', event => {
+  if (!siteHeader?.classList.contains('menu-open')) return;
+  if (siteHeader.contains(event.target)) return;
+
+  setMobileMenu(false);
+});
+
+/* Close immediately when page scrolling begins */
+window.addEventListener(
+  'scroll',
+  () => {
+    if (siteHeader?.classList.contains('menu-open')) {
+      setMobileMenu(false);
+    }
+  },
+  { passive: true }
+);
+
+/* Reset menu when moving back to desktop */
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 760) {
+    setMobileMenu(false);
+  }
+});
+
+/* Escape key support */
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') {
+    setMobileMenu(false);
+  }
+});
 
 /* =========================
    PORTFOLIO DATA
@@ -139,6 +219,78 @@ const featuredName = document.getElementById('featuredName');
 const featuredType = document.getElementById('featuredType');
 const toast = document.getElementById('toast');
 const progressBar = document.querySelector('.scroll-progress');
+const mobileProjectCount =
+  document.getElementById('mobileProjectCount');
+
+const mobileProjectProgressBar =
+  document.getElementById('mobileProjectProgressBar');
+
+let mobileRailFrame = null;
+
+function updateMobileProjectRail() {
+  if (!grid || !mobileProjectCount || !mobileProjectProgressBar) return;
+
+  const cards = [...grid.querySelectorAll('.project-card')];
+
+  if (!cards.length) {
+    mobileProjectCount.textContent = '00 / 00';
+    mobileProjectProgressBar.style.width = '0%';
+    return;
+  }
+
+  const railCenter = grid.scrollLeft + grid.clientWidth / 2;
+
+  let activeIndex = 0;
+  let smallestDistance = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+    const distance = Math.abs(cardCenter - railCenter);
+
+    if (distance < smallestDistance) {
+      smallestDistance = distance;
+      activeIndex = index;
+    }
+  });
+
+  const current = String(activeIndex + 1).padStart(2, '0');
+  const total = String(cards.length).padStart(2, '0');
+  const percentage = ((activeIndex + 1) / cards.length) * 100;
+
+  mobileProjectCount.textContent = `${current} / ${total}`;
+  mobileProjectProgressBar.style.width = `${percentage}%`;
+}
+
+function requestMobileRailUpdate() {
+  if (mobileRailFrame) return;
+
+  mobileRailFrame = requestAnimationFrame(() => {
+    updateMobileProjectRail();
+    mobileRailFrame = null;
+  });
+}
+
+function initMobileProjectRail() {
+  if (!grid) return;
+
+  if (!grid.dataset.mobileRailReady) {
+    grid.dataset.mobileRailReady = 'true';
+
+    grid.addEventListener(
+      'scroll',
+      requestMobileRailUpdate,
+      { passive: true }
+    );
+
+    window.addEventListener(
+      'resize',
+      requestMobileRailUpdate,
+      { passive: true }
+    );
+  }
+
+  requestAnimationFrame(updateMobileProjectRail);
+}
 
 /* =========================
    RENDER PROJECTS
@@ -439,6 +591,7 @@ if (year) {
 
 initTheme();
 hydrateContactLinks();
+attachProjectEvents();
 renderProjects();
-observeReveals();
-attachTilt();
+requestAnimationFrame(() => observeReveals());
+initMobileProjectRail();
